@@ -1048,6 +1048,14 @@ public class AddressBook {
      * @param name to be validated
      */
     private static boolean isPersonNameValid(String name) {
+        // all words in the name are capitalized
+        for (int i = -1; i < name.length() - 1; i++) {
+            if (i == -1 || name.charAt(i) == ' ') {
+                if (Character.isLowerCase(name.charAt(i+1))) {
+                    return false;
+                }
+            }
+        }
         // name does not contain any numbers and is nonempty mixture of alphabets and whitespace
         return (! name.matches(".*\\d+.*")) && name.matches("(\\w|\\s)+");
         //TODO: implement a more permissive validation
@@ -1059,8 +1067,11 @@ public class AddressBook {
      * @param phone to be validated
      */
     private static boolean isPersonPhoneValid(String phone) {
-        // phone nonempty sequence of eight digits
-        return phone.length() == 8 && phone.matches("\\d+");
+        // phone nonempty sequence of digits or +, (, )
+        phone.replace("(", "");
+        phone.replace("}", "");
+        phone.replace("+", "");
+        return phone.matches("\\d+");
         //TODO: implement a more permissive validation
     }
 
