@@ -16,11 +16,12 @@ public class test {
     }
 
     private static boolean isPersonPhoneValid(String phone) {
-        // phone nonempty sequence of digits or +, (, )
+        // phone nonempty sequence of eight digits
+        // phone allowed to have characters like (, ), +
         phone.replace("(", "");
         phone.replace("}", "");
         phone.replace("+", "");
-        return phone.matches("\\d+");
+        return phone.length() == 8 && phone.matches("\\d+");
         //TODO: implement a more permissive validation
     }
 
